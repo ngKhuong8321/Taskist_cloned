@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1095002141430",
+    "project_id": "taskist-2ff1c",
+    "storage_bucket": "taskist-2ff1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095002141430:android:d60c21938c5df14a8eb2d7",
+        "android_client_info": {
+          "package_name": "com.example.taskist_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095002141430-uvdkrai061ljgdc0gk9fmuvh8smesbqk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_MvSXL54v-d4EeU0EKzwEEqhm9ahLHuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095002141430-uvdkrai061ljgdc0gk9fmuvh8smesbqk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1095002141430-2077o1r44tu33t79ln4u974fv43c0gbo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskistClone"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
