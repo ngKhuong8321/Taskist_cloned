@@ -9,7 +9,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -42,7 +42,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int currentPage = 1;
-  List<Widget> pages = [TaskDonePage(), TaskListPage(), TaskSettingPage()];
+  List<Widget> pages = [
+    const TaskDonePage(),
+    TaskListPage(),
+    const TaskSettingPage()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

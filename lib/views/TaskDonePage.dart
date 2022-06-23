@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
+import 'package:taskist_clone/views/task_add.dart';
+
+import '../widgets/task_card.dart';
 
 class TaskDonePage extends StatefulWidget {
-  TaskDonePage({Key? key}) : super(key: key);
+  const TaskDonePage({Key? key}) : super(key: key);
 
   @override
   State<TaskDonePage> createState() => _TaskDonePageState();
@@ -42,7 +46,7 @@ class _TaskDonePageState extends State<TaskDonePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(width: 10.0, height: 10.0),
+              const SizedBox(width: 10.0, height: 10.0),
               Text(
                 thisWeekDay[now.weekday] ??= "Can't detect weekday ",
                 style: const TextStyle(
@@ -88,63 +92,97 @@ class _TaskDonePageState extends State<TaskDonePage> {
           ),
         ),
       ),
-
       ////////////////////////////////////////////////////////////////////
       ///                        BODY STARTED HERE                     ///
       ////////////////////////////////////////////////////////////////////
 
       body: Padding(
         padding: const EdgeInsets.all(0.0),
-        child: Container(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  const Expanded(
-                    child: Divider(
-                      height: 20,
-                      thickness: 1,
-                      color: Colors.black,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                const Expanded(
+                  child: Divider(
+                    height: 20,
+                    thickness: 1,
+                    color: Colors.black,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: RichText(
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Task',
+                          style: TextStyle(
+                            fontSize: 36,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Done',
+                          style: TextStyle(
+                            fontSize: 36,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(40.0),
-                    child: RichText(
-                      text: const TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Task',
-                            style: TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Done',
-                            style: TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
+                ),
+                const Expanded(
+                  child: Divider(
+                    height: 20,
+                    thickness: 1,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 40.0,
+              height: 40.0,
+            ),
+            SizedBox(
+              height: 500,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("lists")
+                    .where('progress', isEqualTo: 1)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    return ListView(
+                      physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics(),
                       ),
-                    ),
-                  ),
-                  const Expanded(
-                    child: Divider(
-                      height: 20,
-                      thickness: 1,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
+                      scrollDirection: Axis.horizontal,
+                      children: snapshot.data!.docs
+                          .map((lists) => taskCard(() {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) =>
+                                        AddTaskPage(curList: lists)),
+                                  ),
+                                );
+                              }, lists))
+                          .toList(),
+                    );
+                  }
+                  return const Text("There's no notes");
+                },
               ),
-              /////////////////////////
-              /// CONTENT GOES HERE ///
-              /////////////////////////
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

@@ -48,7 +48,7 @@ Map<int, Icon> trailingIcon = const {
 };
 
 class TaskSettingPage extends StatefulWidget {
-  TaskSettingPage({Key? key}) : super(key: key);
+  const TaskSettingPage({Key? key}) : super(key: key);
 
   @override
   State<TaskSettingPage> createState() => _TaskSettingPageState();
@@ -147,7 +147,7 @@ class _TaskSettingPageState extends State<TaskSettingPage> {
                     itemCount: 4,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        tileColor: Color(0xffffffff),
+                        tileColor: const Color(0xffffffff),
                         title: Text(sectionTitle[index] ??= ''),
                         leading: sectionNum[index],
                         trailing: trailingIcon[index],
