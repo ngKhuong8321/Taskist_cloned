@@ -98,8 +98,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
             'id': curID,
             'progress': 0,
           });
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => TaskListPage()));
+          Navigator.of(context).pop();
         },
         label: const Text('Create Tasks List'),
         icon: const Icon(Icons.add),
